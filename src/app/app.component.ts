@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import FauxElement from './faux-dom';
+import FauxDOM from './faux-dom';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fauxElement = new FauxElement(this.renderer, 'div', this.plotlyContainer.nativeElement);
-    debugger;
+    this.fauxElement = FauxDOM.createElement('div');
     Plotly.plot(this.fauxElement,
       [{ x: [1, 2, 3, 4, 5],
       y: [1, 2, 4, 8, 16] }], {
