@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import FauxDOM from './faux-dom';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FauxDOM } from './fauxdom';
+
+declare var Plotly: any;
 
 @Component({
   selector: 'app-root',
@@ -12,14 +14,14 @@ export class AppComponent implements OnInit {
   @ViewChild('plotlyContainer')
   private plotlyContainer: ElementRef;
 
-  fauxElement;
+  fauxElement: any;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private faux: FauxDOM) {
 
   }
 
   ngOnInit() {
-    this.fauxElement = FauxDOM.createElement('div');
+    this.fauxElement = this.faux.createElement('div');
     Plotly.plot(this.fauxElement,
       [{ x: [1, 2, 3, 4, 5],
       y: [1, 2, 4, 8, 16] }], {

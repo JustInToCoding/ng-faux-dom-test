@@ -2,7 +2,6 @@ import camelCase, { styleCamelCase } from './camel-case';
 import isString from './is-string';
 import parse from './style-attr';
 import * as querySelectorAll from 'query-selector';
-import { Renderer2 } from '@angular/core';
 
 function Element (nodeName: string, parentNode?): void {
   // this.renderer = renderer;
