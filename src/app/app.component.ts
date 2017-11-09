@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FauxDOM } from './fauxdom';
 
-declare var Plotly: any;
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [FauxDOM],
 })
 export class AppComponent implements OnInit {
   title = 'app';

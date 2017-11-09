@@ -1,11 +1,11 @@
 import Element from './element';
 import Window from './window';
 
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
 
 @Injectable()
 export class FauxDOM {
-  constructor() {
+  constructor(private r: Renderer2) {
     if (!Element.prototype.ownerDocument)
       Element.prototype.ownerDocument = this;
   }
@@ -13,7 +13,8 @@ export class FauxDOM {
   defaultView = Window;
 
   createElement(nodeName) {
-    return new Element(nodeName);
+    return this.r.createElement(nodeName);
+    //return new Element(nodeName);
   }
   createElementNS(namespace, nodeName) {
     return this.createElement(nodeName);
