@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { FauxDOM } from './fauxdom';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [FauxDOM],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -13,11 +12,12 @@ export class AppComponent implements OnInit {
   @ViewChild('plotlyContainer')
   private plotlyContainer: ElementRef;
 
+  faux: FauxDOM;
   fauxElement: any;
 
-  constructor(
-    private faux: FauxDOM
-  ) { }
+  constructor(private r: Renderer2) {
+    this.faux = new FauxDOM(r);
+  }
 
   ngOnInit() {
     this.fauxElement = this.faux.createElement('div');
@@ -36,5 +36,10 @@ export class AppComponent implements OnInit {
       }
     );
     this.faux.append(this.plotlyContainer.nativeElement, this.fauxElement);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: Event) {
+    Plotly.Plots.resize(this.fauxElement);
   }
 }

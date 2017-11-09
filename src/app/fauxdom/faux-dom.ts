@@ -1,8 +1,7 @@
 import Window from './window';
 
-import { Injectable, Renderer2 } from '@angular/core';
+import { Renderer2 } from '@angular/core';
 
-@Injectable()
 export class FauxDOM {
 
   Element: any;
@@ -15,14 +14,17 @@ export class FauxDOM {
   createElement(nodeName): any {
     return this.r.createElement(nodeName);
   }
+
   createElementNS(namespace, nodeName): any {
-    return this.createElement(nodeName);
+    return this.r.createElement(nodeName, namespace);
   }
+
   compareDocumentPosition(): Number {
     // The selector engine tries to validate with this, but we don't care.
     // 8 = DOCUMENT_POSITION_CONTAINS, so we say all nodes are in this document.
     return 8;
   }
+
   append(parent: any, child: any): void {
     this.r.appendChild(parent, child);
   }
