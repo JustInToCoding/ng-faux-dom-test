@@ -1,20 +1,19 @@
-import Element from './element';
 import Window from './window';
 
 import { Injectable, Renderer2 } from '@angular/core';
 
 @Injectable()
 export class FauxDOM {
-  constructor(private r: Renderer2) {
-    if (!Element.prototype.ownerDocument)
-      Element.prototype.ownerDocument = this;
-  }
-  Element = Element;
+
+  Element: any;
   defaultView = Window;
+
+  constructor(private r: Renderer2) {
+    this.Element = this.r.createElement('div').__proto__;
+  }
 
   createElement(nodeName): any {
     return this.r.createElement(nodeName);
-    //return new Element(nodeName);
   }
   createElementNS(namespace, nodeName): any {
     return this.createElement(nodeName);
