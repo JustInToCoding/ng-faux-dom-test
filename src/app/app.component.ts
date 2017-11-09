@@ -15,9 +15,9 @@ export class AppComponent implements OnInit {
 
   fauxElement: any;
 
-  constructor(private faux: FauxDOM) {
-
-  }
+  constructor(
+    private faux: FauxDOM
+  ) { }
 
   ngOnInit() {
     this.fauxElement = this.faux.createElement('div');
@@ -35,5 +35,6 @@ export class AppComponent implements OnInit {
         modeBarButtons: [['zoom2d', 'pan2d'], ['zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d']]
       }
     );
+    this.faux.append(this.plotlyContainer.nativeElement, this.fauxElement);
   }
 }
