@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import FauxDOM from './faux-dom';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { FauxDOM } from 'ng-faux-dom';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +12,15 @@ export class AppComponent implements OnInit {
   @ViewChild('plotlyContainer')
   private plotlyContainer: ElementRef;
 
-  fauxElement;
+  faux: FauxDOM;
+  fauxElement: any;
 
-  constructor(private renderer: Renderer2) {
-
+  constructor(private r: Renderer2) {
+    this.faux = new FauxDOM(r);
   }
 
   ngOnInit() {
-    this.fauxElement = FauxDOM.createElement('div');
+    this.fauxElement = this.faux.createElement('div');
     Plotly.plot(this.fauxElement,
       [{ x: [1, 2, 3, 4, 5],
       y: [1, 2, 4, 8, 16] }], {
@@ -34,5 +35,11 @@ export class AppComponent implements OnInit {
         modeBarButtons: [['zoom2d', 'pan2d'], ['zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d']]
       }
     );
+    this.faux.append(this.plotlyContainer.nativeElement, this.fauxElement);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event: Event) {
+    Plotly.Plots.resize(this.fauxElement);
   }
 }
