@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
-import { FauxDOM } from './fauxdom';
+import { FauxDOM } from 'ng-faux-dom';
 
 @Component({
   selector: 'app-root',
